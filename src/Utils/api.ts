@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axi = axios.create({
-  baseURL: "http://193.123.235.90:8000",
+  baseURL: "https://sv.jwlee.xyz",
   headers: {
     SID: window.location.hostname,
   },
