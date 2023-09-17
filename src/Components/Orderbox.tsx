@@ -66,15 +66,9 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import { useMediaQuery } from "@chakra-ui/media-query";
-import { FaSun, FaMoon } from "react-icons/fa";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { AiOutlineCloud, AiOutlineCloudUpload } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { FiLogOut } from "react-icons/fi";
 import { axi } from "../Utils/api";
 import { IOrder, ITable } from "../Interfaces";
 import { orderStatusParser } from "../Utils/types";
