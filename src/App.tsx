@@ -13,7 +13,9 @@ export function App() {
         position="top-left"
         reverseOrder={false}
         toastOptions={{
-          duration: 1600,
+          success: {
+            duration: 2000,
+          },
         }}
       />
       <ChakraProvider theme={theme} colorModeManager={manager}>
