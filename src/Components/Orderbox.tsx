@@ -85,6 +85,7 @@ function OrderBox() {
   const [targetOrderNumber, setTargetOrderNumber] = useState<number>();
   const [targetOrder, setTargetOrder] = useState<IOrder>();
   const [targetSearchBody, setTargetSearchBody] = useState<any>({});
+  const [cookedOrders, setCookedOrders] = useState<IOrder[]>([]);
 
   const fetchOrders = async (orderNumber: number | undefined) => {
     const toastid = toast.loading("오더를 불러오는 중입니다...");
@@ -102,6 +103,7 @@ function OrderBox() {
 
     if (res.data.code === 200) {
       setOrders(res.data.curOrders);
+      setCookedOrders(res.data.cookedOrders);
       setEndOrders(res.data.endOrders);
       return toast.success("오더를 성공적으로 불러왔습니다..", { id: toastid });
     } else toast.error("오더를 불러오는데 실패했습니다.", { id: toastid });
@@ -114,6 +116,7 @@ function OrderBox() {
     const res = await axi.post("/order/search", searchBody);
     if (res.data.code === 200) {
       setOrders(res.data.curOrders);
+      setCookedOrders(res.data.cookedOrders);
       setEndOrders(res.data.endOrders);
       return toast.success("오더를 성공적으로 불러왔습니다..", { id: toastid });
     } else toast.error("오더를 불러오는데 실패했습니다.", { id: toastid });

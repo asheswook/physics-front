@@ -150,7 +150,7 @@ function Mainbox() {
     const fetchTargetTable = async () => {
       const res = await axi.post("/order/search", { tableNumber: targetTableNumber });
       if (res.data.code == 200) {
-        setTargetTableOrders([...res.data.curOrders, ...res.data.endOrders]);
+        setTargetTableOrders([...res.data.curOrders, ...res.data.cookedOrders, ...res.data.endOrders]);
       } else toast.error("오더 조회에 실패했습니다.");
 
       const res2 = await axi.post("/table/search", { tableNumber: targetTableNumber });
