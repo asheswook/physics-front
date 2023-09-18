@@ -386,6 +386,49 @@ function OrderBox() {
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
+                  서빙을 기다리는 주문
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <TableContainer>
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>주문번호</Th>
+                      <Th>테이블</Th>
+                      <Th>메뉴</Th>
+                      <Th>수량</Th>
+                      <Th>상태</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {cookedOrders &&
+                      cookedOrders.map((order) => (
+                        <Tr
+                          onClick={() => {
+                            onOpen();
+                            setTargetOrderNumber(order.orderNumber);
+                          }}
+                        >
+                          <Td>{order.orderNumber + "번"}</Td>
+                          <Td>{"Table " + order.tableNumber}</Td>
+                          <Td>{order.menu.name}</Td>
+                          <Td>{order.quantity + "개"}</Td>
+                          <Td>{orderStatusParser(order.status)}</Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </AccordionPanel>
+          </AccordionItem>
+
+          <AccordionItem>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="left">
                   완료된 주문
                 </Box>
                 <AccordionIcon />
