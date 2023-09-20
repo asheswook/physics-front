@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import IndexPage from "../Pages/index";
 import MenuPage from "../Pages/menu";
 import OrderPage from "../Pages/order";
+import SettingsPage from "../Pages/settings";
 
 const Router: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Router: React.FC = () => {
         <Route path="/" element={<IndexPage />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/order" element={<OrderPage />} />
+        <Route path="/setting" element={<SettingsPage />} />
         <Route path="/*" element={<span>404</span>} />
       </Routes>
     </BrowserRouter>
