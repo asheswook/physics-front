@@ -77,7 +77,7 @@ function MenuBox() {
 
   const [menuList, setMenuList] = useState<any>([]);
   const getMenuList = async () => {
-    const res = await axi.get("/menu/search");
+    const res = await axi.post("/menu/search");
     if (res.data.code === 200) {
       setMenuList(res.data.data);
     } else {
