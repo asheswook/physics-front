@@ -216,7 +216,7 @@ function Mainbox() {
                 <MenuList minWidth="240px">
                   <MenuOptionGroup defaultValue="jaewook" title="품목" type="radio" onChange={(value) => handleMenuChoose(value)}>
                     {JSON.parse(sessionStorage.getItem("menus") || "[]").map((menu: any) => (
-                      <MenuItemOption value={menu.name}>{menu.name}</MenuItemOption>
+                      <MenuItemOption value={menu.name}>{menu.name + " " + menu.price}</MenuItemOption>
                     ))}
                   </MenuOptionGroup>
                 </MenuList>
