@@ -60,42 +60,46 @@ import { FiLogOut } from "react-icons/fi";
 import { axi } from "../Utils/api";
 import { IOrder, ITable } from "../Interfaces";
 
-function MenuBox() {
+function Settings() {
   const navigate = useNavigate();
   const { colorMode, toggleColorMode } = useColorMode();
-  const [menuAddBody, setMenuAddBody] = useState<any>({});
+  const [userName, setUserName] = useState<string>();
 
-  const addMenu = async () => {
-    const res = await axi.post("/menu/add", menuAddBody);
-    if (res.data.code === 200) {
-      toast.success("메뉴가 추가되었습니다.");
-      setMenuAddBody({});
-    } else {
-      toast.error("메뉴 추가에 실패했습니다.");
-    }
+  const setLocalName = () => {
+    if (!userName) return toast.error("이름을 입력해주세요.");
+    localStorage.setItem("user", userName);
+    toast.success("이름이 설정되었습니다.");
+  };
+
+  const clearSessionStorage = () => {
+    sessionStorage.clear();
+    toast.success("세션 스토리지가 초기화되었습니다.");
   };
 
   return (
     <Box borderWidth="1px" padding="10px" margin="15px" borderRadius="15px" boxShadow="0 10px 20px 0 rgba(0,0,0, 0.3)">
       <Container>
         <Text fontSize="2xl" fontWeight="bold">
-          메뉴 추가하기
+          이름 설정 {localStorage.getItem("user") ? `(${localStorage.getItem("user")})` : ""}
         </Text>
         <Divider />
         <Text fontSize="xl" my="5px" fontWeight="bold">
           이름
         </Text>
-        <Input placeholder="Name" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, name: e.target.value })} />
-        <Text fontSize="xl" fontWeight="bold">
-          가격
+        <Input placeholder="Name" my="5px" onChange={(e) => setUserName(e.target.value)} />
+        <Button colorScheme="blue" mb="10px" onClick={() => setLocalName()}>
+          추가하기
+        </Button>
+        <Divider />
+        <Text fontSize="2xl" fontWeight="bold">
+          세션 스토리지 초기화
         </Text>
-        <Input placeholder="Price" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, price: e.target.value })} />
-        <Button colorScheme="blue" mb="10px" onClick={addMenu}>
-          추가
+        <Button colorScheme="blue" mb="10px" onClick={() => clearSessionStorage()}>
+          초기화
         </Button>
       </Container>
     </Box>
   );
 }
 
-export default MenuBox;
+export default Settings;

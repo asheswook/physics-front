@@ -364,6 +364,7 @@ function OrderBox() {
                     {orders &&
                       orders.map((order) => (
                         <Tr
+                          style={order.memo ? { backgroundColor: "rebeccapurple" } : {}}
                           onClick={() => {
                             onOpen();
                             setTargetOrderNumber(order.orderNumber);

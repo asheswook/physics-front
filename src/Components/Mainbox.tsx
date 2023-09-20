@@ -163,9 +163,24 @@ function Mainbox() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableModal.isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const fetchMenus = async () => {
+      const res = await axi.post("/menu/search");
+      if (res.data.code == 200) {
+        sessionStorage.setItem("menus", JSON.stringify(res.data.menus));
+      } else toast.error("메뉴 조회에 실패했습니다.");
+    };
+    fetchMenus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
   const order = async () => {
     if (!orderBody.tableNumber) orderBody.tableNumber = 1;
-    const res = await axi.post("/order", { ...orderBody, orderedServer: "김재욱" });
+    if (localStorage.getItem("user") === null) return toast.error("이름 설정이 필요합니다.");
+    if (!sessionStorage.getItem("menus")) return toast.error("메뉴 오류가 발생했습니다. 새로고침 후 다시 시도해주세요.");
+    const res = await axi.post("/order", { ...orderBody, orderedServer: localStorage.getItem("user") });
     if (res.data.code == 200) {
       toast.success("주문에 성공했습니다.");
       fetchTables(undefined);
@@ -198,8 +213,9 @@ function Mainbox() {
                 </MenuButton>
                 <MenuList minWidth="240px">
                   <MenuOptionGroup defaultValue="jaewook" title="품목" type="radio" onChange={(value) => handleMenuChoose(value)}>
-                    <MenuItemOption value="제육볶음">제육볶음</MenuItemOption>
-                    <MenuItemOption value="사이다">사이다</MenuItemOption>
+                    {JSON.parse(sessionStorage.getItem("menus") || "[]").map((menu: any) => (
+                      <MenuItemOption value={menu.name}>{menu.name}</MenuItemOption>
+                    ))}
                   </MenuOptionGroup>
                 </MenuList>
               </Menu>
