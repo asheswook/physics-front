@@ -58,7 +58,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FiLogOut } from "react-icons/fi";
 import { axi } from "../Utils/api";
-import { IOrder, ITable } from "../Interfaces";
+import { IMenu, IOrder, ITable } from "../Interfaces";
 
 function MenuBox() {
   const navigate = useNavigate();
@@ -75,11 +75,11 @@ function MenuBox() {
     }
   };
 
-  const [menuList, setMenuList] = useState<any>([]);
+  const [menuList, setMenuList] = useState<IMenu[]>([]);
   const getMenuList = async () => {
     const res = await axi.post("/menu/search");
     if (res.data.code === 200) {
-      setMenuList(res.data.data);
+      setMenuList(res.data.menus);
     } else {
       toast.error("메뉴 리스트를 불러오는데 실패했습니다.");
     }
@@ -90,9 +90,15 @@ function MenuBox() {
   }, []);
 
   return (
-    <Box borderWidth="1px" padding="10px" margin="15px" borderRadius="15px" boxShadow="0 10px 20px 0 rgba(0,0,0, 0.3)">
+    <Box padding="10px" margin="15px">
       <Container>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Button colorScheme="blue" w="100%" my="10px" onClick={() => navigate("/")}>
+          메인으로
+        </Button>
+        <Button colorScheme="red" w="100%" mt="10px" mb="20px" onClick={() => navigate("/setting")}>
+          설정 페이지
+        </Button>
+        <Text fontSize="2xl" fontWeight="bold" mb="5px">
           메뉴 추가하기
         </Text>
         <Divider />
@@ -103,11 +109,11 @@ function MenuBox() {
         <Text fontSize="xl" fontWeight="bold">
           가격
         </Text>
-        <Input placeholder="가격" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, price: e.target.value })} />
+        <Input placeholder="가격" my="5px" mb="10px" onChange={(e) => setMenuAddBody({ ...menuAddBody, price: e.target.value })} />
         <Button colorScheme="blue" mb="10px" onClick={addMenu}>
           추가
         </Button>
-        <Divider />
+        <Divider mb="10px" />
         {/* 메뉴 리스트 */}
         <Text fontSize="2xl" fontWeight="bold" mb="10px">
           메뉴 리스트
@@ -120,8 +126,8 @@ function MenuBox() {
             </Tr>
           </Thead>
           <Tbody>
-            {menuList.map((menu: any) => (
-              <Tr>
+            {menuList.map((menu) => (
+              <Tr key={menu.name}>
                 <Td>{menu.name}</Td>
                 <Td>{menu.price}</Td>
               </Tr>

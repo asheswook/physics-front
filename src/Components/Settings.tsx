@@ -77,21 +77,27 @@ function Settings() {
   };
 
   return (
-    <Box borderWidth="1px" padding="10px" margin="15px" borderRadius="15px" boxShadow="0 10px 20px 0 rgba(0,0,0, 0.3)">
+    <Box padding="10px" margin="15px">
       <Container>
+        <Button colorScheme="blue" w="100%" my="10px" onClick={() => navigate("/")}>
+          메인으로
+        </Button>
+        <Button colorScheme="red" w="100%" mt="10px" mb="20px" onClick={() => navigate("/menu")}>
+          메뉴 설정 페이지
+        </Button>
         <Text fontSize="2xl" fontWeight="bold">
           이름 설정 {localStorage.getItem("user") ? `(${localStorage.getItem("user")})` : ""}
         </Text>
-        <Divider />
+        <Divider mb="10px" />
         <Text fontSize="xl" my="5px" fontWeight="bold">
           이름
         </Text>
-        <Input placeholder="Name" my="5px" onChange={(e) => setUserName(e.target.value)} />
-        <Button colorScheme="blue" mb="10px" onClick={() => setLocalName()}>
-          추가하기
+        <Input placeholder="이름" my="5px" onChange={(e) => setUserName(e.target.value)} />
+        <Button colorScheme="blue" mb="20px" onClick={() => setLocalName()}>
+          설정하기
         </Button>
         <Divider />
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="2xl" mb="10px" fontWeight="bold">
           세션 스토리지 초기화
         </Text>
         <Button colorScheme="blue" mb="10px" onClick={() => clearSessionStorage()}>
