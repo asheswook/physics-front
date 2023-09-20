@@ -102,7 +102,7 @@ function Mainbox() {
     step: 1,
     defaultValue: 1,
     min: 1,
-    max: 50,
+    max: 80,
     onChange: (value) => {
       setTableNumber(parseInt(value));
     },
@@ -118,7 +118,7 @@ function Mainbox() {
     step: 1,
     defaultValue: 1,
     min: 1,
-    max: 50,
+    max: 80,
     onChange: (value) => {
       setOrderBody({ ...orderBody, tableNumber: parseInt(value) });
       console.log(orderBody);

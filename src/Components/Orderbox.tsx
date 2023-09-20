@@ -309,7 +309,7 @@ function OrderBox() {
           </Text>
         </HStack>
         <HStack mb="10px" alignItems="center" justifyContent="center">
-          <NumberInput w="110px" min={1} max={50}>
+          <NumberInput w="110px" min={1} max={80}>
             <NumberInputField placeholder="주문번호" onChange={(e) => setTargetSearchBody({ orderNumber: parseInt(e.target.value) })} />
             <NumberInputStepper>
               <NumberIncrementStepper />
@@ -327,7 +327,7 @@ function OrderBox() {
             icon={<SearchIcon />}
           />
           <Spacer />
-          <NumberInput w="110px" min={1} max={50}>
+          <NumberInput w="110px" min={1} max={80}>
             <NumberInputField placeholder="테이블" onChange={(e) => setTargetSearchBody({ tableNumber: parseInt(e.target.value) })} />
             <NumberInputStepper>
               <NumberIncrementStepper />
