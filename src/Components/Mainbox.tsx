@@ -167,9 +167,11 @@ function Mainbox() {
     if (!isOpen) return;
 
     const fetchMenus = async () => {
+      const toastId = toast.loading("[초기 설정 중] 메뉴 조회 중...");
       const res = await axi.post("/menu/search");
       if (res.data.code == 200) {
         sessionStorage.setItem("menus", JSON.stringify(res.data.menus));
+        toast.success("[초기 설정] 메뉴 조회 완료", { id: toastId });
       } else toast.error("메뉴 조회에 실패했습니다.");
     };
     fetchMenus();

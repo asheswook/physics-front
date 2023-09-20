@@ -75,6 +75,20 @@ function MenuBox() {
     }
   };
 
+  const [menuList, setMenuList] = useState<any>([]);
+  const getMenuList = async () => {
+    const res = await axi.get("/menu/search");
+    if (res.data.code === 200) {
+      setMenuList(res.data.data);
+    } else {
+      toast.error("메뉴 리스트를 불러오는데 실패했습니다.");
+    }
+  };
+
+  useEffect(() => {
+    getMenuList();
+  }, []);
+
   return (
     <Box borderWidth="1px" padding="10px" margin="15px" borderRadius="15px" boxShadow="0 10px 20px 0 rgba(0,0,0, 0.3)">
       <Container>
@@ -85,14 +99,35 @@ function MenuBox() {
         <Text fontSize="xl" my="5px" fontWeight="bold">
           이름
         </Text>
-        <Input placeholder="Name" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, name: e.target.value })} />
+        <Input placeholder="이름" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, name: e.target.value })} />
         <Text fontSize="xl" fontWeight="bold">
           가격
         </Text>
-        <Input placeholder="Price" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, price: e.target.value })} />
+        <Input placeholder="가격" my="5px" onChange={(e) => setMenuAddBody({ ...menuAddBody, price: e.target.value })} />
         <Button colorScheme="blue" mb="10px" onClick={addMenu}>
           추가
         </Button>
+        <Divider />
+        {/* 메뉴 리스트 */}
+        <Text fontSize="2xl" fontWeight="bold" mb="10px">
+          메뉴 리스트
+        </Text>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>이름</Th>
+              <Th>가격</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {menuList.map((menu: any) => (
+              <Tr>
+                <Td>{menu.name}</Td>
+                <Td>{menu.price}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </Container>
     </Box>
   );
